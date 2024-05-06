@@ -10,6 +10,6 @@ public class FollowCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = target.position + offset;
+        transform.position = target.position + offset; //카메라의 위치 = target의 위치 + 카메라의 초기 위치
     }
 }

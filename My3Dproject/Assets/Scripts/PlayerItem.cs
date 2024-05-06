@@ -21,16 +21,16 @@ public class PlayerItem : MonoBehaviour
 
     public void Interaction()
     {
-        if (pm.iDown && nearObject != null)
+        if (pm.iDown && nearObject != null) //상호작용키 입력 && nearObject가 존재할경우
         {
-            Debug.Log("YES");
-            if (nearObject.tag == "Weapon")
+            //Debug.Log("YES");
+            if (nearObject.tag == "Weapon") //nearObject의 태그가 "Weapon"일경우
             {
                 Item item = nearObject.GetComponent<Item>();
                 int weaponIndex = item.value;
                 hasWeapons[weaponIndex] = true;
 
-                Destroy(nearObject);
+                Destroy(nearObject); //nearObject 삭제
             }
         }
     }

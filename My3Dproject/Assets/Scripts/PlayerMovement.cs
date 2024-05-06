@@ -40,8 +40,8 @@ public class PlayerMovement : MonoBehaviour
         hAxis = Input.GetAxisRaw("Horizontal"); //x방향 입력 (키보드 a,d)
         vAxis = Input.GetAxisRaw("Vertical"); //z방향 입력 (키보드 w,s)
         jDown = Input.GetButtonDown("Jump"); //점프 입력
-        iDown = Input.GetButtonDown("Interaction");
-        sDown1 = Input.GetButtonDown("Swap1");
+        iDown = Input.GetButtonDown("Interaction"); //상호작용 키 입력
+        sDown1 = Input.GetButtonDown("Swap1"); //무기 스왑키 1, 2, 3입력
         sDown2 = Input.GetButtonDown("Swap2");
         sDown3 = Input.GetButtonDown("Swap3");
     }
@@ -53,14 +53,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (isDodge) //회피중일경우
             moveVec = dodgeVec; //moveVec를 dodgeVec으로 고정
-        if (isSwap)
-            moveVec = Vector3.zero;
+        if (isSwap) //무기스왑중일경우
+            moveVec = Vector3.zero; //moveVec = 0(움직임 멈춤)
 
         transform.position += moveVec * speed * Time.deltaTime; //백터 * 스피드 * 델타타임을 위치에 계속 더해줌
 
         transform.LookAt(transform.position + moveVec); //플레이어가 이동방향을 바라봄
 
-        anim.SetBool("isRun", moveVec != Vector3.zero);
+        anim.SetBool("isRun", moveVec != Vector3.zero); //에니메이션 파라미터 isRun을 움직이고 있을때 true로 설정
     }
 
     void Jump()
@@ -94,10 +94,10 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Floor")
+        if (other.gameObject.tag == "Floor") //만약 접촉중인 gameobject의 태그가 "Floor"라면
         {
-            anim.SetBool("isJump", false);
-            isJump = false;
+            anim.SetBool("isJump", false); //에니메이션 isJump 파라미터 = false
+            isJump = false; //isJump = false
         }
     }
 }
