@@ -366,8 +366,10 @@
 "Assets/QuarterView 3D Action BE5/ReadMe/Scripts/ReadmeBE5.cs"
 "Assets/Scripts/FollowCam.cs"
 "Assets/Scripts/Item.cs"
+"Assets/Scripts/Orbit.cs"
 "Assets/Scripts/PlayerItem.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/Weapon.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 

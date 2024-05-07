@@ -6,10 +6,14 @@ using UnityEngine;
 public class PlayerItem : MonoBehaviour
 {
     public GameObject[] weapons;
+    public GameObject[] grenades;
     public bool[] hasWeapons;
 
+    public int ammo, coin, health, hasGrenades;
+    public int maxAmmo, maxCoin, maxHealth, maxHasGrenades;
+
     GameObject nearObject;
-    GameObject equipWeapon;
+    public Weapon equipWeapon;
     PlayerMovement pm;
 
     int equipWeaponIndex = -1;
@@ -50,11 +54,11 @@ public class PlayerItem : MonoBehaviour
         {
             Debug.Log("Swap!");
             if (equipWeapon != null)
-                equipWeapon.SetActive(false);
+                equipWeapon.gameObject.SetActive(false);
 
             equipWeaponIndex = weaponIndex;
-            equipWeapon = weapons[weaponIndex];
-            equipWeapon.SetActive(true);
+            equipWeapon = weapons[weaponIndex].GetComponent<Weapon>();
+            equipWeapon.gameObject.SetActive(true);
 
             pm.anim.SetTrigger("doSwap");
 
@@ -66,6 +70,40 @@ public class PlayerItem : MonoBehaviour
     public void SwapOut()
     {
         pm.isSwap = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Item")
+        {
+            Item item = other.GetComponent<Item>();
+
+            switch (item.type)
+            {
+                case Item.Type.Ammo:
+                    ammo += item.value;
+                    if (ammo > maxAmmo)
+                        ammo = maxAmmo;
+                    break;
+                case Item.Type.Coin:
+                    coin += item.value;
+                    if (coin > maxCoin)
+                        ammo = maxCoin;
+                    break;
+                case Item.Type.Heart:
+                    health += item.value;
+                    if (health > maxHealth)
+                        ammo = maxHealth;
+                    break;
+                case Item.Type.Grenade:
+                    grenades[hasGrenades].SetActive(true);
+                    hasGrenades += item.value;
+                    if (hasGrenades > maxHasGrenades)
+                        hasGrenades = maxHasGrenades;
+                    break;
+            }
+            Destroy(other.gameObject);
+        }
     }
 
     void OnTriggerStay(Collider other)
